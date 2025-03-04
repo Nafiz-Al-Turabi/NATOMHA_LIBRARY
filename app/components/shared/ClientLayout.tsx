@@ -1,10 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import { BiChevronDown, BiSearch } from "react-icons/bi";
-import { IoCloseOutline, IoMenuOutline } from "react-icons/io5";
-import { useRouter } from "next/navigation";
+import { BiChevronDown, BiFoodMenu, BiSearch } from "react-icons/bi";
 import Link from "next/link";
+import { TbLogout2 } from "react-icons/tb";
 
 const ClientLayout: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -48,13 +47,9 @@ const ClientLayout: React.FC<{ children: React.ReactNode }> = ({
           <div className="flex items-center gap-4">
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="p-2 rounded-lg"
+              className="p-2 rounded-lg cursor-pointer"
             >
-              {sidebarOpen ? (
-                <IoCloseOutline size={20} />
-              ) : (
-                <IoMenuOutline size={20} />
-              )}
+              {sidebarOpen ? <TbLogout2 size={20} /> : <BiFoodMenu size={20} />}
             </button>
             <span className="text-xl font-bold uppercase">NAT UI Library</span>
           </div>
@@ -107,9 +102,7 @@ const ClientLayout: React.FC<{ children: React.ReactNode }> = ({
           sidebarOpen ? "ml-64" : "ml-0"
         } min-h-screen transition-all duration-200 ease-in-out`}
       >
-        <div className=" p-4">
-          {children}
-        </div>
+        <div className=" p-4">{children}</div>
       </main>
     </div>
   );
