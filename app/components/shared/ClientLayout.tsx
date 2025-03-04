@@ -5,11 +5,13 @@ import { BiChevronDown, BiFoodMenu, BiSearch } from "react-icons/bi";
 import Link from "next/link";
 import { TbLogout2 } from "react-icons/tb";
 import { IoLogoGithub } from "react-icons/io";
+import { usePathname } from "next/navigation";
 
 const ClientLayout: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const pathname = usePathname();
 
   const navigation = [
     {
@@ -89,16 +91,25 @@ const ClientLayout: React.FC<{ children: React.ReactNode }> = ({
                 <BiChevronDown size={20} className="text-[#83858b]" />
               </div>
               <ul>
-                {section.items.map((item, itemIdx) => (
-                  <li key={itemIdx}>
-                    <Link
-                      href={item.path}
-                      className="block w-full text-left px-3 py-1.5 text-sm hover:text-[#A31D1D] border-l border-[#ebebeb] dark:border-[#292f3a]  hover:border-[#A31D1D] hover:bg-[#A31D1D]/10"
-                    >
-                      {item.name}
-                    </Link>
-                  </li>
-                ))}
+                {section.items.map((item, itemIdx) => {
+                  const isActive = pathname === item.path;
+
+                  return (
+                    <li key={itemIdx}>
+                      <Link
+                        href={item.path}
+                        className={`block w-full text-left px-3 py-1.5 text-sm hover:text-[#A31D1D] hover:bg-[#A31D1D]/10
+                                    border-l-2 ${
+                                      isActive
+                                        ? "border-[#A31D1D] text-[#A31D1D] bg-[#A31D1D]/10"
+                                        : "border-transparent dark:border-[#292f3a]"
+                                    }`}
+                      >
+                        {item.name}
+                      </Link>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           ))}
