@@ -4,14 +4,17 @@ import React, { useState } from "react";
 import { BiChevronDown, BiFoodMenu, BiSearch } from "react-icons/bi";
 import Link from "next/link";
 import { TbLogout2 } from "react-icons/tb";
-import { IoLogoGithub } from "react-icons/io";
+import { IoIosSunny, IoLogoGithub } from "react-icons/io";
 import { usePathname } from "next/navigation";
+import { FaCloudMoon } from "react-icons/fa";
+import { useTheme } from "../theme/ThemeProvider";
 
 const ClientLayout: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const pathname = usePathname();
+  const { theme, toggleTheme } = useTheme();
 
   const navigation = [
     {
@@ -45,7 +48,7 @@ const ClientLayout: React.FC<{ children: React.ReactNode }> = ({
   return (
     <div className="min-h-screen">
       {/* Top Navigation */}
-      <header className="fixed top-0 z-50 w-full border-b border-[#ebebeb] dark:border-[#1d202a] dark:bg-[#030712]">
+      <header className="fixed top-0 z-50 w-full border-b border-[#ebebeb] dark:border-[#1d202a]  bg-white dark:bg-[#030712]">
         <div className="flex h-16 items-center justify-between px-4">
           <div className="flex items-center gap-4">
             <button
@@ -62,7 +65,7 @@ const ClientLayout: React.FC<{ children: React.ReactNode }> = ({
               <input
                 type="text"
                 placeholder="Search documentation..."
-                className="w-full pl-10 pr-4 py-2 border border-transparent rounded-lg focus:outline-none focus:border  focus:border-[#1d202a]"
+                className="w-full pl-10 pr-4 py-1 border border-transparent rounded-lg focus:outline-none focus:border focus:border-[#1d202a]"
               />
             </div>
             <Link href="/" className="border border-[#1d202a] px-3 rounded ">
@@ -72,6 +75,44 @@ const ClientLayout: React.FC<{ children: React.ReactNode }> = ({
               <a href="">
                 <IoLogoGithub size={24} />
               </a>
+            </button>
+            <button
+              onClick={toggleTheme}
+              className="relative p-1 rounded-lg bg-background hover:bg-gray-100 dark:hover:bg-gray-800
+                transition-colors duration-300 ease-in-out"
+              aria-label="Toggle theme"
+            >
+              <div className="relative w-5 h-5 overflow-hidden">
+                {/* Sun Icon */}
+                <div
+                  className={`absolute transform transition-all duration-500 ease-in-out 
+          ${
+            theme === "dark"
+              ? "rotate-[-120deg] translate-y-8 opacity-0"
+              : "rotate-0 translate-y-0 opacity-100"
+          }`}
+                >
+                  <IoIosSunny
+                    className="w-5 h-5 text-yellow-500"
+                    strokeWidth={2}
+                  />
+                </div>
+
+                {/* Moon Icon */}
+                <div
+                  className={`absolute transform transition-all duration-500 ease-in-out
+          ${
+            theme === "dark"
+              ? "rotate-0 translate-y-0 opacity-100"
+              : "rotate-[120deg] -translate-y-8 opacity-0"
+          }`}
+                >
+                  <FaCloudMoon
+                    className="w-5 h-5 text-gray-300"
+                    strokeWidth={2}
+                  />
+                </div>
+              </div>
             </button>
           </div>
         </div>
@@ -83,7 +124,7 @@ const ClientLayout: React.FC<{ children: React.ReactNode }> = ({
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <nav className="h-full overflow-y-auto p-4">
+        <nav className="h-full overflow-y-auto p-4 bg-white dark:bg-[#030712] ">
           {navigation.map((section, idx) => (
             <div key={idx} className="mb-6">
               <div className="flex items-center justify-between">
@@ -98,8 +139,8 @@ const ClientLayout: React.FC<{ children: React.ReactNode }> = ({
                     <li key={itemIdx}>
                       <Link
                         href={item.path}
-                        className={`block w-full text-left px-3 py-1.5 text-sm hover:text-[#A31D1D] hover:bg-[#A31D1D]/10
-                                    border-l-2 ${
+                        className={`block w-full text-left px-3 py-1.5 text-sm  hover:text-[#A31D1D] hover:bg-[#A31D1D]/10
+                                    border-l hover:border-[#A31D1D] ${
                                       isActive
                                         ? "border-[#A31D1D] text-[#A31D1D] bg-[#A31D1D]/10"
                                         : "border-transparent dark:border-[#292f3a]"
