@@ -43,11 +43,11 @@ body {
 }
 
 .fade-out {
-  animation: fadeOut 0.3s ease-out forwards;
+  animation: fadeOut 0.5s ease-out forwards;
 }
 
-.bg-pattern {
+/* .bg-pattern {
   background-image: 
     radial-gradient(circle, #49494923 1px, transparent 1px);
   background-size: 4px 4px, 40px 40px, 80px 80px, 80px 80px;
-}
+} */

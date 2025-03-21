@@ -48,7 +48,11 @@ const ClientLayout: React.FC<{ children: React.ReactNode }> = ({
   return (
     <div className="min-h-screen">
       {/* Top Navigation */}
-      <header className="fixed top-0 z-50 w-full border-b border-[#ebebeb] dark:border-[#1d202a]  bg-white dark:bg-[#030712]">
+      <header
+        className={`fixed top-0 z-50 w-full border-b   ${
+          theme === "dark" ? "bg-[#030712] dark:border-[#1d202a]" : "bg-white border-[#ebebeb] "
+        }`}
+      >
         <div className="flex h-16 items-center justify-between px-4">
           <div className="flex items-center gap-4">
             <button
@@ -68,7 +72,7 @@ const ClientLayout: React.FC<{ children: React.ReactNode }> = ({
                 className="w-full pl-10 pr-4 py-1 border border-transparent rounded-lg focus:outline-none focus:border focus:border-[#1d202a]"
               />
             </div>
-            <Link href="/" className="border border-[#1d202a] px-3 rounded ">
+            <Link href="/login" className="border border-[#1d202a] px-3 rounded  ">
               Login
             </Link>
             <button>
@@ -120,11 +124,11 @@ const ClientLayout: React.FC<{ children: React.ReactNode }> = ({
 
       {/* Sidebar Navigation */}
       <aside
-        className={`fixed left-0 top-16 z-40 h-[calc(100vh-4rem)] w-64 transform border-r border-[#ebebeb] dark:border-[#1d202a] transition-transform duration-200 ease-in-out ${
+        className={`fixed left-0 top-16 z-40 h-[calc(100vh-4rem)] w-64 transform border-r ${theme === "dark" ? "border-[#1d202a]" : "border-[#ebebeb]"} transition-transform duration-200 ease-in-out ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <nav className="h-full overflow-y-auto p-4 bg-white dark:bg-[#030712] ">
+        <nav className={`h-full overflow-y-auto p-4 ${theme === "dark" ? "bg-[#030712]" : "bg-white"}`}>
           {navigation.map((section, idx) => (
             <div key={idx} className="mb-6">
               <div className="flex items-center justify-between">
@@ -140,10 +144,12 @@ const ClientLayout: React.FC<{ children: React.ReactNode }> = ({
                       <Link
                         href={item.path}
                         className={`block w-full text-left px-3 py-1.5 text-sm  hover:text-[#A31D1D] hover:bg-[#A31D1D]/10
-                                    border-l hover:border-[#A31D1D] ${
+                                    border-l  hover:border-[#A31D1D] ${
                                       isActive
                                         ? "border-[#A31D1D] text-[#A31D1D] bg-[#A31D1D]/10"
-                                        : "border-transparent dark:border-[#292f3a]"
+                                        : theme === "dark"
+                                        ? "border-transparent dark:border-[#292f3a]"
+                                        : "border-[#ebebeb]"
                                     }`}
                       >
                         {item.name}

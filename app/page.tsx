@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 export default function Home() {
-  return <div className="">
+  return <div className="bg-white">
     lorem5000
   </div>;
 }
