@@ -1,9 +1,11 @@
 "use client";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "@/Auth/AuthProvider";
 
 export default function LoginPage() {
   const [error, setError] = useState("");
+  const {login}= useContext(AuthContext)
 
   const {
     register,
@@ -12,7 +14,12 @@ export default function LoginPage() {
   } = useForm();
 
   const onSubmit = async (data: any) => {
-    console.log(data);
+    try {
+      console.log(data);
+      await login(data)
+    } catch (error) {
+      console.error('Login error:', error.response?.data?.message || error.message);
+    }
   };
 
   return (
