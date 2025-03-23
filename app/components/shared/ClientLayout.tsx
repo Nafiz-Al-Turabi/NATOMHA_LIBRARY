@@ -167,7 +167,7 @@ const ClientLayout: React.FC<{ children: React.ReactNode }> = ({
       <main
         className={`pt-16 ${
           sidebarOpen ? "ml-64" : "ml-0"
-        } min-h-screen transition-all duration-200 ease-in-out`}
+        } min-h-screen transition-all duration-200 ease-in-out ${theme === "dark" ? "bg-[#030712]" : "bg-transparent"}`}
       >
         <div className=" p-4">{children}</div>
       </main>
